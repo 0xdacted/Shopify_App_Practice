@@ -24,19 +24,19 @@ function SmallScreenCard({
   return (
     <UnstyledLink onClick={() => 
     navigate(`/qrcodes/${id}`)}>
-      <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3e5"}}>
+      <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3E5"}}>
         <Stack>
-          <Stack.item>
+          <Stack.Item>
             <Thumbnail
               source={product?.images?.edges[0]?.node?.url || ImageMajor}
               alt="placeholder"
               color="base"
               size="small"
             />
-          </Stack.item>
+          </Stack.Item>
           <Stack.Item fill>
             <Stack vertical={true}>
-              <Stack.item>
+              <Stack.Item>
                 <p>
                   <TextStyle variation="strong">
                     {truncate(title, 35)}
@@ -46,7 +46,7 @@ function SmallScreenCard({
                   {truncate(product?.title, 35)}
                 </p>
                 <p>{dayjs(createdAt).format("MMMM D, YYYY")}</p>
-              </Stack.item>
+              </Stack.Item>
               <div style={{ display: "flex" }}>
                 <div style={{ flex: 3 }}>
                   <TextStyle variation="subdued">Discount</TextStyle>
