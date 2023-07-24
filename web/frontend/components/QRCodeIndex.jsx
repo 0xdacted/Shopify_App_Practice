@@ -22,8 +22,7 @@ function SmallScreenCard({
   navigate,
 }) {
   return (
-    <UnstyledLink onClick={() => 
-    navigate(`/qrcodes/${id}`)}>
+    <div onClick={() => navigate(`/qrcodes/${id}`)}>
       <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3E5"}}>
         <Stack>
           <Stack.Item>
@@ -61,7 +60,7 @@ function SmallScreenCard({
           </Stack.Item>
         </Stack>
       </div>
-    </UnstyledLink>
+    </div>
   );
 }
 
