@@ -13,7 +13,7 @@ import {
   Layout,
   EmptyState,
   VerticalStack,
-  AlphaCard,
+  Card,
 } from "@shopify/polaris";
 import { 
   ContextualSaveBar,
@@ -70,7 +70,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
       ),
       discountId: useField(QRCode?.discountId ||
         NO_DISCOUNT_OPTION.value),
-        discountCode: useField(QRCode.discountCode || ""),
+        discountCode: useField(QRCode?.discountCode || ""),
     },
     onSubmit,
   });
@@ -118,7 +118,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
     ? productViewURL(data)
     : productCheckoutURL(data);
 
-    window.open(targetURL, "_blank", "noreferrer,noopener");
+    window.open(targetUrl, "_blank", "noreferrer,noopener");
   }, [QRCode, selectedProduct, destination, discountCode, handle, variantId, shopData]);
 
   const imageSrc = selectedProduct?.images?.edges?.[0]?.node?.url;
@@ -157,15 +157,15 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
             fullWidth
             />
             <FormLayout>
-              <AlphaCard sectioned title="Title">
+              <Card sectioned title="Title">
                 <TextField
                 {...title}
                 label="Title"
                 labelHidden
                 helpText="Only store staff can see this title"
                 />
-              </AlphaCard>
-              <AlphaCard  
+              </Card>
+              <Card  
               title="Product"
               actions={[
                 {
@@ -175,7 +175,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                 onAction: toggleResourcePicker,
                 },
               ]}>
-              <AlphaCard.Section>
+              <Card.Section>
                 {showResourcePicker && (
                   <ResourcePicker
                     resourceType="Product"
@@ -219,8 +219,8 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                     )}
                   </VerticalStack>
                 )}
-              </AlphaCard.Section>
-              <AlphaCard.Section title="Scan Destination">
+              </Card.Section>
+              <Card.Section title="Scan Destination">
                 <ChoiceList 
                 title="Scan destination" 
                 titleHidden
@@ -234,9 +234,9 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                 selected={destination.value}
                 onChange={destination.onChange}
                 />
-              </AlphaCard.Section>
-            </AlphaCard>
-            <AlphaCard
+              </Card.Section>
+            </Card>
+            <Card
               sectioned
               title="Discount"
               actions={[
@@ -263,12 +263,12 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                 disabled={isLoadingShopData || shopDataError}
                 labelHidden
               /> 
-            </AlphaCard>
+            </Card>
             </FormLayout>
           </Form>
         </Layout.Section>
         <Layout.Section secondary>
-          <AlphaCard sectioned title="QR code">
+          <Card sectioned title="QR code">
             {QRCode ? (
               <EmptyState imageContained={true} image={QRCodeURL} />
             ) : (
@@ -293,7 +293,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                   Go to destination
                 </Button>
             </VerticalStack>
-          </AlphaCard>
+          </Card>
         </Layout.Section>
         <Layout.Section>
           {QRCode?.id && (

@@ -51,5 +51,5 @@ export default function HomePage() {
         </Layout.Section>
       </Layout>
     </Page>
-  )
+  );
 }
