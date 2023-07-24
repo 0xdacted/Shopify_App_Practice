@@ -8,8 +8,8 @@ import {
 } from "@shopify/polaris";
 
 export default function HomePage() {
-  const navigate = UseNavigate();
-  const isLoading = true;
+  const navigate = useNavigate();
+  const isLoading = false;
   const isRefetching = false;
   const QRCodes = [];
 
@@ -42,7 +42,7 @@ export default function HomePage() {
       title="QR codes"
       primaryAction={{
         content: "Create QR code",
-        onAction: () => navihate("/qrcodes/new"),
+        onAction: () => navigate("/qrcodes/new"),
       }} />
       <Layout>
         <Layout.Section>
