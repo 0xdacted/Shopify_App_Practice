@@ -201,7 +201,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                       />
                     )}
                     <Text variation="strong">
-                      {{selectedProduct.title}}
+                      {selectedProduct.title}
                     </Text>
                   </VerticalStack>
                 ) : (
@@ -310,4 +310,30 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
       </Layout>
     </VerticalStack>
   );
+}
+
+function productViewURL({ shopUrl, productHandle, discountCode }) {
+  const url = new URL(shopUrl);
+  const productPath = `/products${productHandle}`;
+
+  if (discountCode) {
+    url.pathname = `/discount/${discountCode}`;
+    url.searchParams.append("redirect", productPath);
+  } else {
+    url.pathname = productPath;
+  }
+  return url.toString();
+}
+
+function productCheckoutURL({ shopUrl, variantId, quantity = 1, discountCode }) {
+  const url = new URL(shopUrl);
+  const id = variantId.replace(/gid:\/\/shopify\/ProductVariant\.([0-9]+)/, "$1");
+
+  url.pathname = `/cart/${id}:${quantity}`;
+
+  if (discountCode) {
+    url.searchParams.append("discount", discountCode);
+  }
+
+  return url.toString();
 }
