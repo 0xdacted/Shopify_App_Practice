@@ -144,10 +144,27 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
     }
   }, [QRCode]);
 
-  const shopData = null;
-  const isLoadingShopData = true;
-  const discountOptions = [NO_DISCOUNT_OPTION];
+  const {
+    data: shopData,
+    isLoading: isLoadingShopData,
+    isError: shopDataError,
+  } = useAppQuery({ url: "/api/shop-data" })
 
+  const discountOptions = shopData 
+    ? [
+      NO_DISCOUNT_OPTION,
+      ...shopData.codeDiscountNodes.edges.map(
+        ({ node: { id, codeDiscount } }) => {
+          DISCOUNT_CODES[id] = codeDiscount.codes.edges[0].node.code;
+
+          return {
+            label: codeDiscount.codes.edges[0].node.code,
+            value: id,
+          };
+        }
+      ),
+    ] : [];
+    
   const goToDestination = useCallback(() => {
     if (!selectedProduct) return;
     const data = {
