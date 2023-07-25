@@ -148,7 +148,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
     data: shopData,
     isLoading: isLoadingShopData,
     isError: shopDataError,
-  } = useAppQuery({ url: "/api/shop-data" })
+  } = useAppQuery({ url: "/api/shop-data" });
 
   const discountOptions = shopData 
     ? [
@@ -183,7 +183,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
 
   const imageSrc = selectedProduct?.images?.edges?.[0]?.node?.url;
   const originalImageSrc = selectedProduct?.images?.[0]?.originalSrc;
-  const altText = selectedProduct?.images?.[0].altText || selectedProduct?.title;
+  const altText = selectedProduct?.images?.[0]?.altText || selectedProduct?.title;
 
   return (
     <VerticalStack>
@@ -374,7 +374,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
 
 function productViewURL({ shopUrl, productHandle, discountCode }) {
   const url = new URL(shopUrl);
-  const productPath = `/products${productHandle}`;
+  const productPath = `/products/${productHandle}`;
 
   if (discountCode) {
     url.pathname = `/discount/${discountCode}`;

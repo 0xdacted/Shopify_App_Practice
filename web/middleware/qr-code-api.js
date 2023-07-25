@@ -74,7 +74,7 @@ export default function applyQRCodeApiEndpoints(app) {
   app.post("/api/qrcodes", async (req, res) => {
     try {
       const id = await QRCodesDB.create({
-        ...QRCodesDB(await parseQrCodeBody(req)),
+        ...(await parseQrCodeBody(req)),
         shopDomain: await getShopUrlFromSession(req, res),
       });
       const response = await formatQrCodeResponse(req, res, [
@@ -83,6 +83,7 @@ export default function applyQRCodeApiEndpoints(app) {
       res.status(201).send(response[0]);
     }
     catch (error) {
+      console.error(error.stack);
       res.status(500).send(error.message);
     }
   });

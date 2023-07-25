@@ -8,6 +8,7 @@ import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 
 import applyQRCodeApiEndpoints from "./middleware/qr-code-api.js";
+import applyQrCodePublicEndpoints from "./middleware/qr-code-public.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -37,6 +38,7 @@ app.post(
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
+applyQrCodePublicEndpoints(app);
 
 app.use(express.json());
 

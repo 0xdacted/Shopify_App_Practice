@@ -4,7 +4,7 @@ import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlit
 import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
 import sqlite3 from "sqlite3";
 import { join } from "path";
-import { QRCodesDB } from "./qr-codes-db";
+import { QRCodesDB } from "./qr-codes-db.js";
 
 const database = new sqlite3.Database(join(process.cwd(), 
 "database.sqlite"));

@@ -20,7 +20,7 @@ export default function HomePage() {
     url: "/api/qrcodes",
   });
 
-  const qrCodesMarkup = QRCodes.length ? (
+  const qrCodesMarkup = QRCodes?.length ? (
     <QRCodeIndex QRCodes={QRCodes} loading={isRefetching} />
   ) : null;
 

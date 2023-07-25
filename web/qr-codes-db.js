@@ -119,7 +119,7 @@ export const QRCodesDB = {
     return true
   },
 
-  generateQrcodeDestinationUrl: function (qrcode) 
+  generateQrCodeDestinationUrl: function (qrcode) 
   {
     return `${shopify.api.config.hostScheme}://${shopify.api.config.hostName}/qrcodes/${qrcode.id}/scan
     `;
@@ -196,14 +196,14 @@ export const QRCodesDB = {
   __addImageUrl: function (qrcode) {
     try {
       qrcode.imageUrl = 
-      this.__generateQrcodeImageUrl(qrcode);
+      this.__generateQrCodeImageUrl(qrcode);
     } catch (err) {
       console.error(err);
     }
     return qrcode;
   },
 
-  __generateQrcodeImageUrl: function (qrcode) {
+  __generateQrCodeImageUrl: function (qrcode) {
     return `${shopify.api.config.hostScheme}://${shopify.api.config.hostName}/qrcodes/${qrcode.id}/image`;
   },
 
