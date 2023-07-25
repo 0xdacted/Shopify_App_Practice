@@ -19,7 +19,7 @@ export default function HomePage() {
   } = useAppQuery({
     url: "/api/qrcodes",
   });
-  
+
   const qrCodesMarkup = QRCodes.length ? (
     <QRCodeIndex QRCodes={QRCodes} loading={isRefetching} />
   ) : null;
