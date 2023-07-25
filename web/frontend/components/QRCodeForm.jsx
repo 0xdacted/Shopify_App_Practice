@@ -35,7 +35,38 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
   const navigate = useNavigate();
   const fetch = useAuthenticatedFetch();
   const deletedProduct = QRCode?.product?.title === "Deleted product";
-  const onSubmit = (body) => console.log("submit", body);
+  const onSubmit = useCallback(
+    (body) => {
+      (async () => {
+        const parsedBody = body;
+        parsedBody.destination = parsedBody.destination[0];
+        const QRCodeId = QRCode?.id;
+
+        const url = QRCodeId ? 
+        `/api/qrcodes/${QRCodeId}` : "/api/qrcodes";
+
+        const method = QRCodeId ? "PATCH" : "POST";
+
+        const response = await fetch(url, {
+          method, 
+          body: JSON.stringify(parsedBody),
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          makeClean();
+          const QRCode = await response.json();
+
+          if (!QRCodeId) {
+            navigate(`/qrcodes/${QRCode.id}`);
+          } else {
+            setQRCode(QRCode);
+          }
+        }
+      })();
+      return { status: "success" };
+    },
+    [QRCode, setQRCode]
+  );
 
   const {
     fields: {
@@ -98,8 +129,20 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
   const toggleResourcePicker = useCallback(() => setShowResourcePicker(!showResourcePicker),
   [showResourcePicker]);
 
-  const isDeleting = false;
-  const deleteQRCode = () => console.log("delete");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deleteQRCode = useCallback(async () => {
+    reset();
+    setIsDeleting(true);
+    const response = await
+    fetch(`/api/qrcodes/${QRCode.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    
+    if (response.ok) {
+      navigate(`/`);
+    }
+  }, [QRCode]);
 
   const shopData = null;
   const isLoadingShopData = true;
