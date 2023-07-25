@@ -7,42 +7,19 @@ import {
   SkeletonBodyText
 } from "@shopify/polaris";
 import { QRCodeIndex } from "../components";
+import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const isLoading = false;
-  const isRefetching = false;
-  const QRCodes = [
-    {
-      createdAt: "2022-06-13",
-      destination: "checkout",
-      title: "My first QR code",
-      id: 1,
-      discountCode: "SUMMERDISCOUNT",
-      product: {
-        title: "Faded t-shirt",
-      }
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "My second QR code",
-      id: 2,
-      discountCode: "WINTERDISCOUNT",
-      product: {
-        title: "Cozy parka",
-      }
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "QR code for deleted product",
-      id: 3,
-      product: {
-        title: "Deleted product",
-      }
-    },
-  ];
+
+  const {
+    data: QRCodes,
+    isLoading,
+    isRefetching,
+  } = useAppQuery({
+    url: "/api/qrcodes",
+  });
+  
   const qrCodesMarkup = QRCodes.length ? (
     <QRCodeIndex QRCodes={QRCodes} loading={isRefetching} />
   ) : null;
